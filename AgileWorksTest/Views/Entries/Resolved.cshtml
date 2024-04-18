@@ -1,0 +1,55 @@
+﻿@model IEnumerable<AgileWorksTest.Models.Entry>
+
+@{
+    ViewData["Title"] = "Resolved";
+}
+
+
+
+<h1>Resolved Entries</h1>
+
+<p>
+    <a asp-action="Index">Unresolved Entries</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.deadline)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.content)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.deadline)
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

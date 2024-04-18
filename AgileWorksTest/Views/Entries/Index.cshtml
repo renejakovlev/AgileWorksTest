@@ -1,0 +1,69 @@
+﻿@model IEnumerable<AgileWorksTest.Models.Entry>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    .highlight-red {
+        background-color: #ffcccc; /* Red color */
+    }
+</style>
+
+<h1>Unresolved Entries</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<h4>To delete entries, they must first be resolved. See resolved entries below:</h4>
+
+<p>
+    <a asp-action="Resolved">Resolved Entries</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.deadline)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr class="@(DateTime.Now > item.deadline || (item.deadline - DateTime.Now) < TimeSpan.FromHours(1) ? "highlight-red" : "")">
+                <td>
+                    @Html.DisplayFor(modelItem => item.title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.content)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.deadline)
+                </td>
+                <td>
+                    <form asp-action="Resolve" asp-route-id="@item.id" method="post">
+                        <button type="submit">Resolve</button>
+                    </form>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.id">Edit</a> 
+                </td>
+ 
+           </tr>
+        }
+    </tbody>
+</table>
